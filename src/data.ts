@@ -8,7 +8,7 @@ export const profile = {
   phoneHref: "tel:+918050495331",
   linkedin: "https://www.linkedin.com/in/rohini-maindargi",
   github: "https://github.com/rohini-maindargi",
-  resume: "/Rohini_Maindargi_Resume.pdf",
+  resume: "https://drive.google.com/file/d/12XKIwenjgIvEZPpg53Y4soW7imboj5qy/view?usp=sharing",
 };
 
 export const stats = [

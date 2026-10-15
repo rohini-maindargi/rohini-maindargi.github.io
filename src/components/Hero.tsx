@@ -117,7 +117,7 @@ export function Hero() {
             <Button variant="primary" href="#projects">
               View my work <ArrowRight className="size-4" />
             </Button>
-            <Button href={profile.resume} download>
+            <Button href={profile.resume} target="_blank" rel="noopener">
               <Download className="size-4" /> Resume
             </Button>
             <Button href={profile.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" className="px-3.5">

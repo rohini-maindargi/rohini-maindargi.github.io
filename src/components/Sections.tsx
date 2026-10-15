@@ -225,7 +225,7 @@ export function Contact() {
               <Button href={profile.phoneHref}>
                 <Phone className="size-4" /> {profile.phone}
               </Button>
-              <Button href={profile.resume} download>
+              <Button href={profile.resume} target="_blank" rel="noopener">
                 <Download className="size-4" /> Resume
               </Button>
               <Button href={profile.linkedin} target="_blank" rel="noopener">

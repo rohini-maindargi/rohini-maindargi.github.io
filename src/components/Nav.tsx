@@ -59,7 +59,8 @@ export function Nav() {
           </ul>
           <a
             href={profile.resume}
-            download
+            target="_blank"
+            rel="noopener"
             className="ml-2 hidden items-center gap-1.5 rounded-lg border border-line-strong px-3 py-1.5 text-sm transition-colors hover:border-violet sm:inline-flex"
           >
             <Download className="size-3.5" /> Resume
