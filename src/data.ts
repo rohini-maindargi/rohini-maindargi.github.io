@@ -11,15 +11,11 @@ export const profile = {
   resume: "https://drive.google.com/file/d/12XKIwenjgIvEZPpg53Y4soW7imboj5qy/view?usp=sharing",
 };
 
-export const stats = [
-  { value: "3+", label: "years in cloud & DevOps" },
-  { value: "2×", label: "AWS certified" },
-  { value: "3", label: "end-to-end infra projects" },
-];
-
-export const tools = [
-  "AWS", "Terraform", "CloudFormation", "Kubernetes", "Docker", "ArgoCD", "Jenkins",
-  "CodePipeline", "CloudWatch", "Prometheus", "Route 53", "IAM", "VPC", "Linux", "Python", "Bash",
+export const glance = [
+  { label: "Current role", value: "Cloud Engineer, Genpact", note: "2023 — Present" },
+  { label: "Certified", value: "AWS Solutions Architect – Associate", note: "AWS Cloud Practitioner" },
+  { label: "Core stack", value: "AWS · Terraform · Kubernetes", note: "Docker · ArgoCD · Jenkins · CloudWatch" },
+  { label: "Experience", value: "3+ years in cloud & DevOps", note: "Genpact · Concentrix" },
 ];
 
 export const experience = [

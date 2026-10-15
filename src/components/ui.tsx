@@ -1,44 +1,37 @@
 import { motion, useReducedMotion } from "motion/react";
-import type { ComponentProps, MouseEvent, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
+
+export const wrap = "mx-auto max-w-5xl px-4 sm:px-6";
 
 export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: reduce ? 0 : 24 }}
+      initial={{ opacity: 0, y: reduce ? 0 : 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>
   );
 }
 
-export function SectionHeader({ index, eyebrow, title, intro }: { index: string; eyebrow: string; title: ReactNode; intro?: string }) {
+export function SectionHeader({ eyebrow, title, intro }: { eyebrow: string; title: string; intro?: string }) {
   return (
-    <Reveal className="mb-12 max-w-2xl">
-      <p className="font-mono text-xs tracking-wider text-teal">
-        {index} <span className="text-muted">/ {eyebrow}</span>
-      </p>
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">{title}</h2>
-      {intro && <p className="mt-4 text-lg text-muted">{intro}</p>}
+    <Reveal className="mb-10 max-w-2xl">
+      <p className="text-sm font-semibold text-accent">{eyebrow}</p>
+      <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
+      {intro && <p className="mt-3 text-lg text-muted">{intro}</p>}
     </Reveal>
   );
 }
 
-// Card with a soft spotlight that follows the cursor
 export function Card({ className = "", children, ...rest }: ComponentProps<"div">) {
-  const onMove = (e: MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
   return (
     <div
-      onMouseMove={onMove}
-      className={`spot rounded-2xl border border-line bg-surface transition-colors duration-300 hover:border-line-strong ${className}`}
+      className={`rounded-2xl border border-line bg-surface transition-shadow duration-200 hover:shadow-[0_4px_24px_-8px_rgb(15_23_41/0.12)] dark:hover:shadow-none ${className}`}
       {...rest}
     >
       {children}
@@ -46,25 +39,24 @@ export function Card({ className = "", children, ...rest }: ComponentProps<"div"
   );
 }
 
-type ButtonProps = ComponentProps<"a"> & { variant?: "primary" | "ghost" };
-export function Button({ variant = "ghost", className = "", children, ...rest }: ButtonProps) {
-  const base =
-    "inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5";
+type ButtonProps = ComponentProps<"a"> & { variant?: "primary" | "secondary" };
+export function Button({ variant = "secondary", className = "", children, ...rest }: ButtonProps) {
   const style =
     variant === "primary"
-      ? "grad-bg text-[#07090f] shadow-[0_8px_30px_-8px_var(--violet)] hover:shadow-[0_12px_40px_-8px_var(--violet)]"
-      : "border border-line-strong bg-surface/60 backdrop-blur hover:border-violet";
+      ? "bg-accent text-white hover:bg-accent-hover dark:text-[#0b0d12]"
+      : "border border-line-strong bg-surface hover:border-accent hover:text-accent";
   return (
-    <a className={`${base} ${style} ${className}`} {...rest}>
+    <a
+      className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors duration-150 ${style} ${className}`}
+      {...rest}
+    >
       {children}
     </a>
   );
 }
 
 export function Tag({ children }: { children: ReactNode }) {
-  return (
-    <span className="rounded-lg border border-line bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-teal">{children}</span>
-  );
+  return <span className="rounded-md bg-subtle px-2.5 py-1 text-[13px] font-medium text-fg/80 ring-1 ring-line">{children}</span>;
 }
 
 export function GitHubIcon({ className = "size-4" }: { className?: string }) {

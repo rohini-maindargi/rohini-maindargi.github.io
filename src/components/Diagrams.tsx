@@ -1,4 +1,3 @@
-import { useReducedMotion } from "motion/react";
 import type { Project } from "../data";
 
 type Node = { x: number; y: number; w: number; h: number; title: string; sub: string; accent?: boolean };
@@ -64,25 +63,20 @@ const specs: Record<Project["id"], Spec> = {
 
 export function Diagram({ id }: { id: Project["id"] }) {
   const spec = specs[id];
-  const reduce = useReducedMotion();
   const mid = `arrow-${id}`;
   return (
-    <div className="overflow-x-auto rounded-xl border border-line bg-surface-2/60 p-4">
-      <svg viewBox={spec.viewBox} role="img" aria-label={spec.label} className="h-auto w-full min-w-[540px]">
+    <div className="overflow-x-auto rounded-xl border border-line bg-subtle p-4 sm:p-6">
+      <svg viewBox={spec.viewBox} role="img" aria-label={spec.label} className="mx-auto h-auto w-full max-w-3xl min-w-[540px]">
         <defs>
           <marker id={mid} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-            <path d="M0 0L10 5L0 10z" fill="var(--teal)" />
+            <path d="M0 0L10 5L0 10z" fill="var(--accent)" />
           </marker>
-          <linearGradient id={`g-${id}`} x1="0" x2="1">
-            <stop offset="0" stopColor="var(--violet)" />
-            <stop offset="1" stopColor="var(--teal)" />
-          </linearGradient>
         </defs>
 
         {spec.groups?.map((g) => (
           <g key={g.label}>
             <rect x={g.x + 0.5} y={g.y} width={g.w - 1} height={g.h - 1} rx="14" fill="none" stroke="var(--line-strong)" strokeDasharray="4 5" />
-            <text x={g.x + 14} y={g.y + 20} fill="var(--muted)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1">
+            <text x={g.x + 14} y={g.y + g.h - 14} fill="var(--muted)" fontSize="9" fontWeight="600" fontFamily="var(--font-sans)" letterSpacing="0.8">
               {g.label}
             </text>
           </g>
@@ -91,26 +85,17 @@ export function Diagram({ id }: { id: Project["id"] }) {
         {spec.edges.map((e, i) => (
           <g key={i}>
             <path
-              id={`${id}-e${i}`}
               d={e.d}
               fill="none"
-              stroke={e.dashed ? "var(--violet)" : "var(--teal)"}
-              strokeWidth="1.6"
+              stroke={e.dashed ? "var(--muted)" : "var(--accent)"}
+              strokeWidth="1.5"
               strokeDasharray={e.dashed ? "5 4" : undefined}
               markerEnd={`url(#${mid})`}
-              opacity="0.85"
             />
             {e.label && (
-              <text x={e.label.x} y={e.label.y} textAnchor="middle" fill="var(--muted)" fontSize="9" fontFamily="var(--font-mono)">
+              <text x={e.label.x} y={e.label.y} textAnchor="middle" fill="var(--muted)" fontSize="9.5" fontFamily="var(--font-sans)">
                 {e.label.text}
               </text>
-            )}
-            {!reduce && (
-              <circle r="2.6" fill={e.dashed ? "var(--violet)" : "var(--teal)"}>
-                <animateMotion dur={`${1.6 + (i % 3) * 0.4}s`} repeatCount="indefinite" begin={`${i * 0.35}s`}>
-                  <mpath href={`#${id}-e${i}`} />
-                </animateMotion>
-              </circle>
             )}
           </g>
         ))}
@@ -122,15 +107,15 @@ export function Diagram({ id }: { id: Project["id"] }) {
               y={n.y + 0.5}
               width={n.w - 1}
               height={n.h - 1}
-              rx="11"
-              fill="var(--surface)"
-              stroke={n.accent ? `url(#g-${id})` : "var(--line-strong)"}
-              strokeWidth={n.accent ? 1.6 : 1}
+              rx="10"
+              fill={n.accent ? "var(--accent-soft)" : "var(--surface)"}
+              stroke={n.accent ? "var(--accent)" : "var(--line-strong)"}
+              strokeWidth={n.accent ? 1.4 : 1}
             />
             <text x={n.x + n.w / 2} y={n.y + n.h / 2 - 2} textAnchor="middle" fill="var(--fg)" fontSize="11.5" fontWeight="600" fontFamily="var(--font-sans)">
               {n.title}
             </text>
-            <text x={n.x + n.w / 2} y={n.y + n.h / 2 + 13} textAnchor="middle" fill="var(--muted)" fontSize="9" fontFamily="var(--font-mono)">
+            <text x={n.x + n.w / 2} y={n.y + n.h / 2 + 13} textAnchor="middle" fill="var(--muted)" fontSize="9.5" fontFamily="var(--font-sans)">
               {n.sub}
             </text>
           </g>
