@@ -110,6 +110,7 @@ nav a.link:hover { color: var(--text); background: var(--surface); }
   border: 1px solid var(--border); background: var(--surface); color: var(--muted);
 }
 .badge b { color: var(--accent-2); font-weight: 600; }
+a.badge:hover { border-color: var(--accent); color: var(--text); }
 
 /* Sections */
 section { padding: 80px 0; }
