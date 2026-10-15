@@ -1,7 +1,7 @@
 export const profile = {
   name: "Rohini Maindargi",
   role: "Cloud & DevOps Engineer",
-  location: "Hyderabad, India",
+  location: "Bangalore, India",
   availability: "Open to Cloud, DevOps & SRE roles",
   email: "rohinimaindargi@gmail.com",
   phone: "+91 80504 95331",
